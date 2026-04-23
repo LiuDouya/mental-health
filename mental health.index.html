@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三叶草职业测评 | 初中心理健康</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:"微软雅黑",sans-serif;}
+        body{background:#f0f8f5;padding:20px;line-height:1.8;}
+        .container{max-width:800px;margin:0 auto;background:#fff;padding:30px;border-radius:16px;box-shadow:0 0 15px #ddd;}
+        h1{text-align:center;color:#2e7d32;margin-bottom:20px;font-size:24px;}
+        .desc{text-align:center;color:#666;margin-bottom:30px;}
+        .q-box{margin:25px 0;padding:20px;background:#f7fff9;border-radius:10px;}
+        .q-title{font-weight:bold;color:#2e7d32;margin-bottom:12px;}
+        .option{margin:10px 0;cursor:pointer;}
+        input[type="radio"]{margin-right:8px;}
+        button{display:block;width:200px;height:45px;margin:30px auto;background:#388e3c;color:#fff;border:none;border-radius:8px;font-size:16px;cursor:pointer;}
+        button:hover{background:#2e7d32;}
+        .result-box{margin-top:30px;padding:25px;border-radius:10px;background:#e8f5e9;display:none;}
+        .result-title{font-size:20px;color:#1b5e20;font-weight:bold;margin-bottom:15px;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍀 三叶草职业小测评</h1>
+        <p class="desc">理论依据：兴趣 · 能力 · 价值观 三叶草模型<br>凭第一直觉选择，提交即刻查看专属结果</p>
+
+        <!-- 问卷 -->
+        <div class="q-box">
+            <div class="q-title">第一片叶：兴趣（我喜欢什么）</div>
+            <div class="option"><input type="radio" name="q1" value="A"> A 文艺创造：喜欢阅读、画画、写作、音乐、安静创作</div>
+            <div class="option"><input type="radio" name="q1" value="B"> B 实践行动：喜欢动手、实验、运动、户外、实操做事</div>
+            <div class="option"><input type="radio" name="q1" value="C"> C 人际服务：喜欢交友、沟通、帮助他人、组织活动</div>
+        </div>
+
+        <div class="q-box">
+            <div class="q-title">第二片叶：能力（我擅长什么）</div>
+            <div class="option"><input type="radio" name="q2" value="A"> A 感性天赋：细腻共情、想象力好、审美与表达力强</div>
+            <div class="option"><input type="radio" name="q2" value="B"> B 实干天赋：动手强、执行力强、能吃苦、擅长解决实际问题</div>
+            <div class="option"><input type="radio" name="q2" value="C"> C 交往天赋：擅长沟通、合群、会协调、理解他人感受</div>
+        </div>
+
+        <div class="q-box">
+            <div class="q-title">第三片叶：价值（我最想要什么）</div>
+            <div class="option"><input type="radio" name="q3" value="A"> A 自由感受：工作轻松自在、做喜欢的事、精神满足优先</div>
+            <div class="option"><input type="radio" name="q3" value="B"> B 安稳务实：稳定收入、有一技之长、踏实可靠、稳步发展</div>
+            <div class="option"><input type="radio" name="q3" value="C"> C 价值意义：被需要、有温度、能帮助别人、获得认可</div>
+        </div>
+
+        <button onclick="getResult()">查看我的测评结果</button>
+
+        <!-- 结果展示区 -->
+        <div class="result-box" id="result">
+            <div class="result-title">你的三叶草类型</div>
+            <div id="resContent"></div>
+        </div>
+    </div>
+
+    <script>
+        function getResult(){
+            let q1 = document.querySelector('input[name="q1"]:checked');
+            let q2 = document.querySelector('input[name="q2"]:checked');
+            let q3 = document.querySelector('input[name="q3"]:checked');
+            if(!q1||!q2||!q3){
+                alert("请完成全部三道选择题再提交！");
+                return;
+            }
+            let key = q1.value+q2.value+q3.value;
+            let res = "";
+
+            // 所有组合精准文案，无分数
+            switch(key){
+                case "AAA":
+                    res = `<strong>🌿 文艺理想型</strong><br>特质：内心丰富、热爱自由、富有创意与美感。<br>适合方向：美术、音乐、文创设计、文案编辑、新媒体、美育、文学相关。<br>成长建议：试着把爱好变成实实在在的能力，让兴趣落地。`;
+                    break;
+                case "AAB":
+                    res = `<strong>🌿 创意技术型</strong><br>特质：有审美灵感，又踏实稳重，愿意打磨技能。<br>适合方向：数字艺术、影视后期、手工文创、园林设计、视觉创作。<br>成长建议：坚持深耕一项艺术+技术结合的特长。`;
+                    break;
+                case "AAC":
+                    res = `<strong>🌿 温柔治愈型</strong><br>特质：感性细腻、共情力强，擅长用表达温暖他人。<br>适合方向：心理健康教育、语文教育、心理咨询、文旅讲解、情感服务类。<br>成长建议：学会坚定自我，不要过度在意他人评价。`;
+                    break;
+                case "ABA":
+                    res = `<strong>🌿 探索创造型</strong><br>特质：好奇心强、热爱探索，既有行动力又有想象力。<br>适合方向：科普创作、自然探索、实验研发、户外策划、博物类职业。<br>成长建议：制定小目标，避免三分钟热度。`;
+                    break;
+                case "ABB":
+                    res = `<strong>🌿 实干美学型</strong><br>特质：动手能力强，同时拥有审美品味，务实又有想法。<br>适合方向：装修设计、工艺制作、技术类设计、康养技术、检测实操。<br>成长建议：保持学习，让技术持续升级。`;
+                    break;
+                case "ABC":
+                    res = `<strong>🌿 实践关怀型</strong><br>特质：行动力足，懂得换位思考，适合集体协作。<br>适合方向：基层服务、社团管理、健康服务、公益实践、活动执行。<br>成长建议：培养独立思考能力，提升个人主见。`;
+                    break;
+                case "ACA":
+                    res = `<strong>🌿 社交创意型</strong><br>特质：擅长社交、性格开朗，兼具创意与审美。<br>适合方向：活动策划、主持、艺术机构运营、社群管理、文旅服务。<br>成长建议：沉淀一项核心特长，避免样样通样样松。`;
+                    break;
+                case "ACB":
+                    res = `<strong>🌿 统筹服务型</strong><br>特质：会沟通、能做事、稳重靠谱，适合管理协调。<br>适合方向：行政管理、班级管理、运营助理、公共服务、后勤统筹。<br>成长建议：提升逻辑规划能力，做事更有条理。`;
+                    break;
+                case "ACC":
+                    res = `<strong>🌿 教育陪伴型</strong><br>特质：热心善良、擅长倾听、愿意陪伴和帮助别人。<br>适合方向：教师、心理辅导、社工、幼教、公益服务、人文类岗位。<br>成长建议：建立边界感，照顾好自己的情绪。`;
+                    break;
+                case "BAA":
+                    res = `<strong>🌿 灵感探索型</strong><br>特质：热爱动手探索，想法独特，观察力敏锐。<br>适合方向：实验艺术、自然研学、科创制作、户外设计、小众创作。<br>成长建议：合理规划时间，平衡兴趣与学习。`;
+                    break;
+                case "BAB":
+                    res = `<strong>🌿 硬核实干型</strong><br>特质：三叶草务实均衡，动手强、能吃苦、心态稳定。<br>适合方向：工程技术、智能制造、医护医技、体育、农林、实验检测。<br>成长建议：学会调节压力，劳逸结合。`;
+                    break;
+                case "BAC":
+                    res = `<strong>🌿 技术服务型</strong><br>特质：有实操能力，又愿意服务他人，踏实有温度。<br>适合方向：康复技术、运动教练、社区技术服务、维修保障、基层帮扶。<br>成长建议：多表达自己，提升沟通软实力。`;
+                    break;
+                case "BCA":
+                    res = `<strong>🌿 行动创意型</strong><br>特质：活力十足，脑洞开阔，适合灵活多变的工作模式。<br>适合方向：户外拓展、活动执行、潮流文创、运动文创、短视频实操。<br>成长建议：培养耐心，提升细节把控力。`;
+                    break;
+                case "BCB":
+                    res = `<strong>🌿 稳定技能型</strong><br>特质：稳重自律、执行力强，依靠专业技能稳步发展。<br>适合方向：各类技能型岗位、智能制造、轨道交通、现代技工、品质检测。<br>成长建议：主动学习新技能，适应时代变化。`;
+                    break;
+                case "BCC":
+                    res = `<strong>🌿 协作实干型</strong><br>特质：团队意识强、行动力强，是集体里可靠的执行者。<br>适合方向：团体服务、公共事业、场馆运营、体育服务、后勤保障。<br>成长建议：多挖掘个人优势，打造专属特长。`;
+                    break;
+                case "CAA":
+                    res = `<strong>🌿 感性社交型</strong><br>特质：温柔外向、感受力强，擅长营造温暖氛围。<br>适合方向：文化传播、艺术社团、情感博主、人文服务、休闲文旅。<br>成长建议：增强行动力，不要只停留在想法。`;
+                    break;
+                case "CAB":
+                    res = `<strong>🌿 沟通务实型</strong><br>特质：擅长沟通协调，做事踏实，情商与执行力兼备。<br>适合方向：人力资源、行政接待、销售服务、机构管理、中介统筹。<br>成长建议：提升理性分析能力，做事更严谨。`;
+                    break;
+                case "CAC":
+                    res = `<strong>🌿 助人温暖型</strong><br>特质：三片叶子偏向人际与价值，善良、包容、有责任心。<br>适合方向：中小学教师、心理健康、社工、护理、公益组织、志愿者管理。<br>成长建议：学会拒绝，减少内耗。`;
+                    break;
+                case "CBA":
+                    res = `<strong>🌿 活力社交型</strong><br>特质：热情开朗、动手能力不错，适合走动、交流类工作。<br>适合方向：活动组织、研学导师、门店运营、户外服务、团队拓展。<br>成长建议：提升专注力，做好时间管理。`;
+                    break;
+                case "CBB":
+                    res = `<strong>🌿 稳重交际型</strong><br>特质：处事成熟、靠谱合群，既有技能意识又懂人情世故。<br>适合方向：窗口服务、政务辅助、企业基础管理、技术服务对接。<br>成长建议：保留个性，不盲目迎合他人。`;
+                    break;
+                case "CBC":
+                    res = `<strong>🌿 均衡服务型</strong><br>特质：共情、实干、价值感拉满，综合适配度很高。<br>适合方向：综合服务类、教育服务、健康管理、社区工作、统筹协调。<br>成长建议：定期自我复盘，清晰未来方向。`;
+                    break;
+                default:
+                    res = `<strong>暂未匹配</strong> 请重新选择。`;
+            }
+            document.getElementById("resContent").innerHTML = res;
+            document.getElementById("result").style.display = "block";
+        }
+    </script>
+</body>
+</html>
